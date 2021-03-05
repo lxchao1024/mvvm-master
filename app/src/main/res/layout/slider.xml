@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+        <import type="android.view.Gravity"/>
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xdp_200.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:vertical="@{false}">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xdp_90.0"
+                app:gravity ="@{Gravity.BOTTOM}"
+                app:num_step = "@{10}"
+                android:layout_gravity="bottom"/>
+        <com.ditclear.paonet.helper.widget.indicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xdp_20.0"
+                android:layout_gravity="bottom"
+                app:ci_background="@android:color/white"
+                app:ci_selected_background="@color/deep_sky_blue"
+                app:ci_mode="solo"
+                app:ci_gravity="center"
+                app:ci_radius="@dimen/xdp_5.0"
+                app:ci_margin="@dimen/xdp_2.5"/>
+    </FrameLayout>
+</layout>

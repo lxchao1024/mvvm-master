@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="vm"
+                type="com.ditclear.paonet.view.auth.viewmodel.LoginViewModel"/>
+
+        <variable
+                name="presenter"
+                type="com.ditclear.paonet.view.base.Presenter"/>
+    </data>
+
+    <FrameLayout
+            android:id="@+id/super_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:onClick="@{(v)->presenter.onClick(v)}"
+            tools:context=".view.auth.LoginActivity">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/xdp_150.0"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:transitionName="@string/transition_login"
+                app:cardBackgroundColor="@color/background_light">
+
+            <LinearLayout
+                    android:id="@+id/form_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:animateLayoutChanges="true"
+                    android:clickable="true"
+                    android:elevation="@dimen/cardview_default_elevation"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_normal">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:visible="@{vm.loginVisibility}"
+                        android:orientation="vertical">
+
+
+                    <TextView
+                            android:id="@+id/dialog_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_normal"
+                            android:text="@string/title_login"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/username_float_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintTextAppearance="@style/TextAppearance.FloatLabelHint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/username"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/username"
+                                android:inputType="textEmailAddress"
+                                android:selectAllOnFocus="true"
+                                android:text="@={vm.email}"
+                                android:textColorHighlight="@color/deep_sky_blue"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/password_float_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintTextAppearance="@style/TextAppearance.FloatLabelHint"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="?colorControlNormal">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/password"
+                                android:inputType="textPassword"
+                                android:selectAllOnFocus="true"
+                                android:text="@={vm.password}"
+                                android:textColorHighlight="@color/deep_sky_blue"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                            android:id="@+id/login_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/spacing_normal"
+                            android:enabled="@{vm.btnEnabled}"
+                            android:onClick="@{(v)->presenter.onClick(v)}"
+                            android:text="@string/login_action"
+                            android:textAppearance="@style/TextAppearance.DarkButton"
+                            app:visible="@{vm.loginVisibility}"/>
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/logout_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        android:onClick="@{(v)->presenter.onClick(v)}"
+                        android:text="@string/logout_action"
+                        android:textAppearance="@style/TextAppearance.DarkButton"
+                        app:visible="@{vm.logoutVisibility}"/>
+                <include
+                        layout="@layout/loading"
+                        android:visibility="@{vm.loading?View.VISIBLE:View.GONE}"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </FrameLayout>
+
+</layout>

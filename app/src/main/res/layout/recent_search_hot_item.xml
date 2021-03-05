@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="item"
+                type="String"/>
+
+        <variable
+                name="presenter"
+                type="com.ditclear.paonet.helper.adapter.recyclerview.ItemClickPresenter"/>
+    </data>
+
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:background="@color/hint_highlight"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:onClick="@{(v)->presenter.onItemClick(v,item)}"
+            android:padding="@dimen/spacing_normal"
+            android:stateListAnimator="@animator/active_raise"
+            android:text="@{item}"
+            android:textColor="@color/colorPrimary"
+            app:layout_flexGrow="1"
+            tools:text="asdaasdadasdada"/>
+
+</layout>

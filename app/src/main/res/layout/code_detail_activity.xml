@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <import type="android.view.Gravity"/>
+        <variable
+                name="vm"
+                type="com.ditclear.paonet.view.code.viewmodel.CodeDetailViewModel"/>
+
+        <variable
+                name="presenter"
+                type="com.ditclear.paonet.view.base.Presenter"/>
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/over_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:transitionGroup="true"
+            tools:context=".view.code.CodeDetailActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:fitsSystemWindows="true"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:title="@{vm.article.title}">
+
+                <ImageView
+                        android:id="@+id/thumbnail_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/thumbnail"
+                        android:duplicateParentState="true"
+                        android:fitsSystemWindows="true"
+                        app:url="@{vm.article.thumbnail}"
+                        android:scaleType="centerCrop"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/xdp_180.0"
+                        app:gravity ="@{Gravity.BOTTOM}"
+                        app:num_step = "@{10}"
+                        android:fitsSystemWindows="true"
+                        android:layout_gravity="bottom"/>
+
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <androidx.legacy.widget.Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_large"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+
+                    <ImageView
+                            android:id="@+id/player_avatar"
+                            android:layout_width="@dimen/xdp_36.0"
+                            android:layout_height="@dimen/xdp_36.0"
+                            android:scaleType="centerCrop"
+                            app:avatar="@{true}"
+                            app:url="@{vm.article.user.face}"
+                            android:layout_marginRight="@dimen/spacing_normal"
+                            tools:src="@drawable/ic_face"/>
+
+                    <TextView
+                            android:id="@+id/player_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{vm.nameAndDate}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            tools:text="ditclear\n七天以前"/>
+
+
+                </LinearLayout>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        android:autoLink="web"
+                        android:textColorLink="@color/deep_sky_blue"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:text="@{@string/github_link(vm.article.url)}"
+                        android:fontFamily="serif"
+                        tools:text="github:"/>
+                <TextView
+                        android:id="@+id/description_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/padding_normal"
+                        android:paddingStart="@dimen/activity_horizontal_margin"
+                        android:paddingEnd="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/padding_normal"
+                        android:layout_marginBottom="@dimen/spacing_normal"
+                        android:text="@{vm.article.description}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColorLink="@color/deep_sky_blue"
+                        tools:text="empty content"/>
+
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingTop="@dimen/spacing_normal"
+                        android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_normal">
+
+                    <Button
+                            android:id="@+id/upvote_btn"
+                            style="@style/Widget.Code.InlineActionButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTint="@color/colorPrimary"
+                            android:drawableTop="@drawable/ic_thumb"
+                            android:text="@{@string/detail_likes(vm.article.upvote)}"
+                            tools:text="33 likes"/>
+
+
+                    <Button
+                            android:id="@+id/comments_btn"
+                            style="@style/Widget.Code.InlineActionButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_normal"
+                            android:layout_weight="1"
+                            android:drawableTop="@drawable/ic_comment"
+                            android:text="@{@string/detail_comments(vm.article.comments)}"
+                            tools:text="2 comments"/>
+
+                    <Button
+                            style="@style/Widget.Code.InlineActionButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:drawableTop="@drawable/ic_visibility"
+                            android:text="@{@string/detail_views(vm.article.click)}"
+                            tools:text="33 views"/>
+
+                </LinearLayout>
+
+
+                <include
+                        layout="@layout/loading"
+                        android:visibility="@{vm.loading?View.VISIBLE:View.GONE}"/>
+
+                <us.feras.mdv.MarkdownView
+                        android:id="@+id/web_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:markdown="@{vm.markdown}"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:rippleColor="@color/stow_color"
+                android:onClick="@{(v)->presenter.onClick(v)}"
+                app:srcCompat="@drawable/ic_bookmark"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
